@@ -1,0 +1,41 @@
+body * {
+	box-sizing: border-box;
+  
+}
+
+form{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  height: 75%;
+  align-items: center;
+  padding: 10px;
+}
+html, body {
+  height: 100%;
+}
+
+div{
+  border: 2gx soild black;
+  background-color: gray;
+  height: 15%;
+  align-items: center;
+  display: flex;
+  text-align: center;
+  width: 100%;
+}
+
+div > span{
+  margin: 0 auto;
+  
+}
+h1{
+  display: block;
+  text-align: center;
+  height: 20%;
+}
+
+button{
+  height: 5%;
+}
