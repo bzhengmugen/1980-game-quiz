@@ -3,39 +3,94 @@ body * {
   
 }
 
-form{
+html {
+  background: url("https://shepherdexpress.com/downloads/40941/download/AEGateway_1983ArcadeBar_E_ByKelseyLawson.jpg?cb=9880b2ac80be2b90a892fac5ce4db54a&w=640") no-repeat center;
+  background-size: cover;
+}
+.container{
+  height: 100%;
+}
+
+#start-page{
+  height: 100%;
+  
+}
+#start-page > h1{
+  color: white;
+}
+#start-page > h2{
+  color: white;
+  text-align: center;
+}
+
+#start-page > button{
+
+  display: block;
+  background-color: aqua;
+}
+
+.Q-page button{
+  background-color: green;
+}
+
+.feedback button{
+  background-color: yellow;
+}
+
+.feedback .failure{
+  color: red;
+}
+
+.feedback .success{
+  color: green;
+}
+
+section{
+  height: 100%;
+  color: white;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   text-align: center;
-  height: 75%;
-  align-items: center;
-  padding: 10px;
+  justify-content: space-between;
+}
+
+button{
+  height: 60px;
+  width: 120px;
+  margin: -30px -60px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  
+  
+}
+
+.Q-page > form{
+  height: 70%;
+  display: flex;
+  flex-direction: column;
+  
+}
+
+fieldset{
+
+}
+
+.answer {
+  display: block;
+}
+
+.currentStatus{
+
 }
 html, body {
   height: 100%;
 }
 
-div{
-  border: 2gx soild black;
-  background-color: gray;
-  height: 15%;
-  align-items: center;
-  display: flex;
-  text-align: center;
-  width: 100%;
-}
-
-div > span{
-  margin: 0 auto;
-  
-}
 h1{
   display: block;
   text-align: center;
   height: 20%;
 }
 
-button{
-  height: 5%;
-}
+
