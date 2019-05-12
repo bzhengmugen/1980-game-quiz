@@ -33,8 +33,11 @@ html {
   background-color: green;
 }
 
+
+
 .feedback button{
   background-color: yellow;
+  margin: auto auto auto;
 }
 
 .feedback .failure{
@@ -43,6 +46,11 @@ html {
 
 .feedback .success{
   color: green;
+  background-color: rgba(0, 110, 255, 0.24)
+}
+
+.feedback h2{
+  margin: auto auto auto;
 }
 
 section{
@@ -57,10 +65,9 @@ section{
 button{
   height: 60px;
   width: 120px;
-  margin: -30px -60px;
-  position: fixed;
-  top: 50%;
-  left: 50%;
+  
+  margin: 60px auto auto;
+  font-size: 24px;
   
   
 }
@@ -72,17 +79,60 @@ button{
   
 }
 
-fieldset{
-
+.Q-page fieldset{
+  width: 600px;
+  margin: auto auto auto;
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
+.Q-page label{
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  padding-left: 9%;
+}
+
+
+
+.Q-page h2{
+  background-color: rgba(255, 255, 255, 0.5);
+  color: black;
+}
+
+span{
+  color: black;
+  font-size: 22px;
+}
 .answer {
   display: block;
 }
 
-.currentStatus{
-
+.currentStatus span{
+  background-color: rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
 }
+.currentStatus{
+  display: flex;
+  justify-content: space-between;
+}
+.final-page{
+  display: flex;
+  flex-direction: column;
+  padding-top: 30%;
+  
+}
+
+.final-page h2{
+  color: red;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.final-page .final-scores{
+  font-size: 60px;
+  color: red;
+  
+}
+
 html, body {
   height: 100%;
 }
@@ -93,4 +143,20 @@ h1{
   height: 20%;
 }
 
+@media only screen and (max-width: 600px){
+  span{
+    font-size: 18px;
+  }
 
+  h2{
+    font-size: 24px;
+  }
+
+  button{
+    font-size: 18px;
+  }
+
+  .Q-page fieldset{
+    width: 100%;
+  }
+}

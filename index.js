@@ -14,7 +14,7 @@ const questionSet = [
     number: 2,
     question: "What year did the NES debut in the US?",
     ans1: "1990",
-    ans2: "1985",
+    ans2: "1986",
     ans3: "1987",
     ans4: "1980"
   },
@@ -73,24 +73,31 @@ const questionSet = [
   
 ];
 
+const bonusQuestion={
+  ans1: 0,
+  ans2: 0,
+  ans3: 0,
+  ans4: 0
+}
 
 const ANSWER = [
   "Inky, Blinky, Pinky and Sue",
-  "1985",
+  "1986",
   "Samus, Female",
   "Tetrominoes",
   "Reptile",
   "2",
   "Princess Peach",
-  "up, down, up, down, left, right, left, right, B, A",
+  "up, up, down, down, left, right, left, right, B, A",
 ];
 
 let questionNum = 0;
 let correctAns = 0;
 const totalQuestions = 8;
+let hiddenContent = [];
 function generateQuestion(){
   const currentQ = questionSet[questionNum];
-  console.log("generate question");
+
   return `
   <section class="Q-page">
     <h2>${currentQ.question} </h2>
@@ -126,10 +133,11 @@ function generateQuestion(){
       <span class="current-scores"> Scores: ${correctAns} / ${totalQuestions} </span>
     </div>
   </section>`;
+  
 }
 
 function nextQuestion(){
-  console.log("generate next question");
+  //console.log("generate next question");
   $(".container").html(generateQuestion());
   questionNum++;
 }
@@ -137,13 +145,13 @@ function nextQuestion(){
 function handleSubmitButton(){
   console.log("renderQuiz ran");
   $(".container").on('click', '#js-submit', function(event){
-    console.log("hit submit");
+    //console.log("hit submit");
     event.preventDefault();
     
     const selectAns = $('input:checked').siblings('span');
-    console.log("checking");
+    //console.log("checking");
     checkAnswer(selectAns)? correctAnswer() : wrongAnswer();
-    console.log("finish checking");
+    //console.log("finish checking");
   });
 }
 
@@ -194,11 +202,137 @@ function handleNextButton(){
 }
 
 function finalStatus(){
+  if (correctAns < 4 ){
+    return `
+    <section class="final-page">
+      <h2>Wo Ho Ho!! It is my great pleasure to have an such young audience!</br> And your final score is</h2>
+      <span class="final-scores">${correctAns}</span>
+      <button class="js-restart">Restart</button>
+    </section>`;
+  } else if (correctAns < totalQuestions){
+    return `
+    <section class="final-page">
+      <h2>Congratulation!! You almost the king of The 80s </br> 
+      Your final score is</h2>
+      <span class="final-scores">${correctAns}</span>
+      <button class="js-restart">Restart</button>
+    </section>`;
+  } else if (!hiddenWork()){
+    return `
+    <section class="final-page">
+      <h2>Awesome!! Your have all the question right!! </br>
+      But you still miss something, take a look at the last question! </h2>
+      <span class="final-scores">${correctAns}</span>
+      <button class="js-restart">Restart</button>
+    </section>`;
+  } else {
   return `
-  <section class="final-page">
-    <h2>Congratulation!! Your final scores is ${correctAns}</h2>
-    <button class="js-restart">Restart</button>
-  </section>`;
+    <section class="feedback">
+      <h2>Incredible! You find the hidden content!</br>
+      Perparing to answer the most difficult question in the world!</h2>
+      <button class="js-bonus">Next</button>
+    </section>`;
+  }
+}
+
+function handleBonusQuestion(){
+  console.log("handleBonusQuestion ran");
+  $(".container").on('click', '.js-bonus', function(event){
+    event.preventDefault();
+    $(".container").html(generateBonus());
+  });
+
+  $(".container").on('click','.js-submit-bonus', function(event){
+    event.preventDefault();
+    const selectAns = $('input:checked').siblings('span');
+    console
+    updateBonus(selectAns.text());
+    $(".container").html(checkBonus());
+  });
+}
+
+function updateBonus(ans){
+  if (ans === "Tom Cruise"){
+    bonusQuestion.ans1++;
+  } else if (ans === "Dwayne Johnson"){
+    bonusQuestion.ans2++;
+  } else if (ans === "Leonardo Dicaprio"){
+    bonusQuestion.ans3++;
+  } else {
+    bonusQuestion.ans4++;
+  }
+}
+
+function checkBonus(){
+  if (bonusQuestion.ans4 === 1){
+    return `
+      <section class="final-page">
+        <h2>Liar! Where did you find my picture!!!</br> 
+        But I will accept this answer (*^__^*)</h2>
+        <button class="js-restart">Restart</button>
+      </section>`;
+  } else if(bonusQuestion.ans1 === 3){
+      return `
+      <section class="final-page">
+        <h2>Well you win!!!</br> 
+        The most handsome man is Tom Cruise</h2>
+        <button class="js-restart">Restart</button>
+      </section>`;
+  } else if(bonusQuestion.ans2 === 3){
+      return `
+      <section class="final-page">
+        <h2>Well you win!!!</br> 
+        The most handsome man is Dwayne Johnson</h2>
+        <button class="js-restart">Restart</button>
+      </section>`;
+  } else if(bonusQuestion.ans2 === 3){
+      return `
+      <section class="final-page">
+        <h2>Well you win!!!</br> 
+        The most handsome man is Leonardo Dicaprio</h2>
+        <button class="js-restart">Restart</button>
+      </section>`;
+  } else{
+    return `
+      <section class="feedback">
+        <h2 class="failure">Really? You might want to reconsider this</h2>
+        <button class="js-bonus">Next</button>
+    `;
+  }
+}
+
+function generateBonus(){
+  return`
+  <section class="Q-page">
+    <h2>Who is the most handsome man?</h2>
+    
+    <form>
+      <fieldset>
+        <label>
+          <input class="answer" type="radio" name="option" checked autofocus></input>
+          <span>Tom Cruise</span>
+        </label>
+  
+        <label>
+          <input class="answer" type="radio" name="option"></input>
+          <span>Dwayne Johnson</span>
+        </label>
+  
+        <label>
+          <input class="answer" type="radio" name="option"></input>
+          <span>Leonardo Dicaprio</span>
+        </label>
+  
+        <label>
+          <input class="answer" type="radio" name="option"></input>
+          <span>Bin Zheng</span>
+        </label>
+      </fieldset>  
+      <button class="js-submit-bonus">Submit</button>
+
+    </form>
+    </section>
+  `;
 }
 
 function handleRestartButton(){
@@ -207,6 +341,11 @@ function handleRestartButton(){
     event.preventDefault();
     questionNum = 0;
     correctAns = 0;
+    hiddenContent =[];
+    bonusQuestion.ans1 = 0;
+    bonusQuestion.ans2 = 0;
+    bonusQuestion.ans3 = 0;
+    bonusQuestion.ans4 = 0;
     nextQuestion();
   });
 
@@ -220,11 +359,38 @@ function renderQuiz(){
   });
 }
 
+function handleHiddenContent(){
+  console.log("handleHiddenContent ran");
+  $("html").keydown(function(event){
+      if(questionNum === 8 & correctAns != 8){
+        
+        hiddenContent.push(event.which);
+        console.log(hiddenContent);
+      }
+  });
+}
+
+function hiddenWork(){
+  const goal = [38,38,40,40,37,39,37,39,66,65];
+  if(hiddenContent.length != goal.length){
+    return false;
+  }
+  for (let i = 0; i<hiddenContent.length; i++){
+    if (hiddenContent[i] != goal[i]){
+      return false;
+    }
+  }
+  return true;
+}
+
+
 function handleQuiz(){
   renderQuiz();
   handleSubmitButton();
   handleNextButton();
   handleRestartButton();
+  handleHiddenContent();
+  handleBonusQuestion();
 }
 
 $(handleQuiz);
